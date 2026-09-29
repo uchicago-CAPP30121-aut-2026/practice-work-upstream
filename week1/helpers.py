@@ -85,12 +85,12 @@ def check_type(actual, expected, checking_return_val=True):
     if checking_return_val:
         msg = (f"The function returned a value of the wrong type.\n"
                f"  Expected return type: {expected_type.__name__}\n"
-               f"  Actual return type: {actual_type.__name__}")               
+               f"  Actual return type: {actual_type.__name__}")
     else:
         msg = (f"The actual value has the wrong type.\n"
                f"  Expected type: {expected_type.__name__}\n"
                f"  Actual type: {actual_type.__name__}")
-    
+
     if isinstance(actual, expected_type):
         return None
     else:
@@ -153,7 +153,7 @@ def check_equals(actual, expected):
 def check_none(actual, expected):
     '''
     If expected is None, generate an error if the actual value is not None.
-    If expected is not None, generate error message if the actual value is None. 
+    If expected is not None, generate error message if the actual value is None.
     Return None if no problem is found.
 
     Parameters
@@ -168,8 +168,8 @@ def check_none(actual, expected):
     '''
     # When we expect a result of None
     if expected is None:
-        msg = (f"\n\nThe function returned a value other than the "
-               f"expected value: None.")
+        msg = ("\n\nThe function returned a value other than the "
+               "expected value: None.")
         if actual is not None:
             return msg
         else:
@@ -191,11 +191,11 @@ def check_result(actual, expected):
     '''
     Comprehensive check of the actual value returned by a function. Return None
     if no problem is found, otherwise an error message.
-    
+
     Parameters
         - actual: the actual value returned by the function being tested
         - expected: the expected value
-        
+
     Returns
         - None if no problem is found, otherwise an error message
     '''
@@ -206,7 +206,7 @@ def check_result(actual, expected):
 
     # Checking that the actual value is the correct type
     msg = check_type(actual, expected)
-    if msg is not None:        
+    if msg is not None:
         return "\n\n" + msg
 
     msg = check_equals(actual, expected)
@@ -232,7 +232,7 @@ def __check_dict_keys(actual, expected):
     for expected_key in expected:
         if expected_key not in actual:
             return rmsg.format(add_quotes_if_needed(expected_key))
-    
+
     rmsg2 = ("  A key '{}' appears in the actual result\n"
              "  that does not appear in the expected result.")
     for actual_key in actual:
@@ -252,7 +252,7 @@ def check_list_unmodified(param_name, before, after):
         - param_name: the name of the parameter being checked
         - before: the value of the parameter before the function was called
         - after: the value of the parameter after the function was called
-    
+
     Returns
         - None if no problem is found, otherwise an error message
     '''
@@ -265,7 +265,7 @@ def check_list_unmodified(param_name, before, after):
     else:
         return None
 
-        
+
 def __check_list_length(actual, expected, desc=""):
     '''
     Generate an error if the actual list is not the same length as the expected
@@ -275,7 +275,7 @@ def __check_list_length(actual, expected, desc=""):
         - actual: the actual list returned by the function being tested
         - expected: the expected list
         - desc: a description of the list being checked
-    
+
     Returns
         - None if no problem is found, otherwise an error message
     '''
@@ -286,7 +286,7 @@ def __check_list_length(actual, expected, desc=""):
     elif isinstance(actual, str):
         t_str = "str"
     else:
-        assert("Did not expect to get here")    
+        assert("Did not expect to get here")
     if desc:
         msg = (f"The actual length ({len(actual)}) of the {t_str} of {desc} "
                f"does not match the expected length ({len(expected)}) of "
@@ -305,8 +305,8 @@ def __check_list_length(actual, expected, desc=""):
 
 def check_1d_iterable(actual, expected):
     '''
-    This function is used to check tuples and lists. Generates an error if the 
-    actual iterable is not the same as the expected. Return None if no problem 
+    This function is used to check tuples and lists. Generates an error if the
+    actual iterable is not the same as the expected. Return None if no problem
     is found.
 
     Parameters
@@ -338,27 +338,27 @@ def check_1d_iterable(actual, expected):
     elif isinstance(actual, str):
         t_str = "str"
     else:
-        assert("Did not expect to get here") 
+        assert("Did not expect to get here")
 
     # Check that all the elements are the correct type, and equal to the expected
     for idx, (acutal_element, expected_element) in enumerate(zip(actual, expected)):
         if not isinstance(acutal_element, type(expected_element)):
             msg = (f"\n\nChecking a {t_str}.\nProblem found at index {idx}:\n"
                    f"  Expected type: {type(expected_element).__name__}\n"
-                   f"  Actual type: {type(acutal_element).__name__}")            
+                   f"  Actual type: {type(acutal_element).__name__}")
             return msg
 
         if acutal_element != expected_element:
             msg = (f"\n\nChecking a {t_str}.\nProblem found at index {idx}:\n"
                    f"  Expected value: {add_quotes_if_needed(expected_element)}\n"
-                   f"  Actual value: {add_quotes_if_needed(acutal_element)}")          
+                   f"  Actual value: {add_quotes_if_needed(acutal_element)}")
             return msg
-        
+
     return None
 
 def check_2D_list_unstructured(actual, expected):
     '''
-    This function is used to check unstructured lists. This is a list where the 
+    This function is used to check unstructured lists. This is a list where the
     sublists are not uniform. Generates an error if the actual iterable
     is not the same as the expected. Return None if no
     problem is found. Return the error message if a problem is found.
@@ -380,20 +380,20 @@ def check_2D_list_unstructured(actual, expected):
     msg = __check_list_length(actual, expected)
     if msg is not None:
         return "\n\n" + msg
-    
+
     # Check all the sub-iterables
     for outer_idx, (actual_sub, expected_sub) in \
         enumerate(zip(actual, expected)):
         # don't use check 1D iterable here, because we want better
         # error messages.
-        
+
         # Check that actual_sub is a list
         if not isinstance(actual_sub, type(expected_sub)):
             msg = (f"\n\nChecking a list. \nValue at index"
                    f" {outer_idx} is a value of {type(actual_sub)} when a "
                    f" {type(expected_sub)} was expected.")
             return msg
-        
+
         # Check that the actual value is the correct length
         #TODO: check in line and generate error message for context
         msg = __check_list_length(actual_sub, expected_sub)
@@ -424,8 +424,8 @@ def check_2D_list_unstructured(actual, expected):
 
 def check_dict(actual, expected):
     '''
-    Function to check the values and keys in a dictionary. 
-    Generates an error if the actual dictionary is not the same as the expected. 
+    Function to check the values and keys in a dictionary.
+    Generates an error if the actual dictionary is not the same as the expected.
     Return None if no problem is found.
 
     First, this function checks the keys in the actual and expected dictionaries
@@ -448,7 +448,7 @@ def check_dict(actual, expected):
     msg = __check_dict_keys(actual, expected)
     if msg is not None:
         return msg
-    
+
     # Check values
     for key in expected:
         msg = check_type(actual[key], expected[key])
@@ -458,7 +458,7 @@ def check_dict(actual, expected):
         msg = check_equals(actual[key], expected[key])
         if msg is not None:
             return f'\n\nValue error at key "{key}"\n{msg}'
-        
+
     return None
 
 def __check_rgb_color(t):
@@ -481,10 +481,10 @@ def __check_2D_shape(actual, expected):
     Check that a list of lists has the right shape. Check the all rows are
     the same (correct) length.
 
-    Parameters 
+    Parameters
         - actual: the actual list of lists returned by the function being tested
         - expected: the expected list of lists
-    
+
     Returns
         - None if no problem is found, otherwise an error message
     """
@@ -517,7 +517,7 @@ def __check_2D_vals(check_val_fn, actual, expected):
         - check_val_fn: function that checks if vals are a set type
         - actual: the actual list of lists returned by the function being tested
         - expected: the expected list of lists
-    
+
     Returns
         - None if no problem is found, otherwise an error message
     """
@@ -544,7 +544,7 @@ def __check_2D_type(check_element_type_fn, actual, error_msg=None):
         - check_element_type_fn: function that checks if vals are a set type
         - actual: the actual list of lists returned by the function being tested
         - error_msg: error message with the appropriate error message based on type
-    
+
     Returns
         - None if no problem is found, otherwise an error message
     """
@@ -554,7 +554,7 @@ def __check_2D_type(check_element_type_fn, actual, error_msg=None):
     for row in actual:
         if not isinstance(row, list):
             return error_msg
-            
+
         for val in row:
             if not check_element_type_fn(val):
                 return error_msg
@@ -562,7 +562,7 @@ def __check_2D_type(check_element_type_fn, actual, error_msg=None):
 
 def check_rgb_image(actual, expected):
     """
-    This function is used to check if the actual image is the same as 
+    This function is used to check if the actual image is the same as
     the expected image.
 
     Parameters
@@ -576,13 +576,13 @@ def check_rgb_image(actual, expected):
     msg = check_none(actual, expected)
     if expected is None or msg is not None:
         return msg
-    
+
     type_error_msg = ("The actual value does not have the correct type.\n"
                       "The expected type is List[List[Tuple(int, int, int)]]")
     err_msg = __check_2D_type(__check_rgb_color, actual, type_error_msg)
     if err_msg is not None:
         return "\n\n" + err_msg
-    
+
     msg = check_2D_no_aliasing(actual, expected)
     if msg is not None:
         return err_msg
@@ -600,7 +600,7 @@ def check_2D_no_aliasing(actual, expected):
     Parameters
         - expected: the expected lists of lists
         - actual: the actual list of lists returned by the function being tested
-    
+
     Returns
         - None if no problem is found, otherwise an error message
     """
@@ -611,7 +611,7 @@ def check_2D_no_aliasing(actual, expected):
         for i, row1 in enumerate(actual):
             for j, row2 in enumerate(actual):
                 if i != j and row1 is row2:
-                    return err_msg.format(i, j)  
+                    return err_msg.format(i, j)
 
 
 def check_2D_list_unmodified(param_name, before, after):
@@ -623,7 +623,7 @@ def check_2D_list_unmodified(param_name, before, after):
         - param_name: the name of the parameter being checked
         - before: the value of the parameter before the function was called
         - after: the value of the parameter after the function was called
-    
+
     Returns
         - None if no problem is found, otherwise an error message
     """

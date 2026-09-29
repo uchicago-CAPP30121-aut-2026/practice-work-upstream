@@ -20,7 +20,7 @@ def test_add_two_and_raise(a, x, expected):
 
     try:
         actual = week1.add_two_and_raise(a, x)
-    except Exception as e:  # pylint: disable=broad-except
+    except Exception as e:
         helpers.fail_and_augment_recreate_unexpected_exception(recreate_msg, e)
 
     err_msg = helpers.check_result(actual, expected)
@@ -39,7 +39,7 @@ def test_compound_loan_amount(p, r, n, expected):
 
     try:
         actual = week1.compound_loan_amount(p, r, n)
-    except Exception as e:  # pylint: disable=broad-except
+    except Exception as e:
         helpers.fail_and_augment_recreate_unexpected_exception(recreate_msg, e)
 
     err_msg = helpers.check_result(actual, expected)
@@ -55,10 +55,40 @@ def test_different_sign(a, b, expected):
 
     try:
         actual = week1.different_sign(a, b)
-    except Exception as e:  # pylint: disable=broad-except
+    except Exception as e:
         helpers.fail_and_augment_recreate_unexpected_exception(recreate_msg, e)
 
     err_msg = helpers.check_result(actual, expected)
     if err_msg is not None:
         pytest.fail(err_msg + recreate_msg)
 
+
+
+
+@pytest.mark.parametrize("num1,num2,divisor,expected", [
+    (1, 1, 1, True),
+    (4, 4, 1, True),
+    (4, 4, 4, True),
+    (2, 4, 2, True),
+    (4, 2, 2, True),
+    (2, 4, 4, False),
+    (4, 2, 4, False),
+    (12, 15, 1, True),
+    (12, 15, 2, False),
+    (12, 15, 3, True),
+    (15, 12, 3, True),
+    (12, 15, 4, False),
+    (12, 15, 5, False)
+])
+def test_are_friendly(num1, num2, divisor, expected):
+    """Test are_friendly"""
+    recreate_msg = helpers.gen_recreate_msg(MODULE, "are_friendly", num1, num2, divisor)
+
+    try:
+        actual = week1.are_friendly(num1, num2, divisor)
+    except Exception as e:
+        helpers.fail_and_augment_recreate_unexpected_exception(recreate_msg, e)
+
+    err_msg = helpers.check_result(actual, expected)
+    if err_msg is not None:
+        pytest.fail(err_msg + recreate_msg)
