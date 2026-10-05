@@ -1,7 +1,7 @@
 [project]
-name = "pa1"
+name = "week2"
 version = "0.1.0"
-description = "CAPP 30121 A'26 PA 1: SIR Model"
+description = "CAPP 30121 A'26 Week 2 practice problems"
 readme = "README.txt"
 requires-python = ">=3.13"
 dependencies = [
