@@ -25,5 +25,5 @@ def read_csv(filename):
     return libs
 
 # The data set to use for testing.
-HI_LCS_2011 = read_csv("data/libraries-collection-statistics-2011-csv.csv")
+HI_LCS_2011 = read_csv("library_data/libraries-collection-statistics-2011-csv.csv")
 
