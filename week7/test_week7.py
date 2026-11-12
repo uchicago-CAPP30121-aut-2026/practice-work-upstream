@@ -266,9 +266,17 @@ def copy_tree(tree):
     return new_tree
 
 
+RMSG = (
+    "See function test_{}_{} for the\n"
+    "tree construction code for this test\n"
+    "and then call week7.{}(tree)\n"
+)
+
+
 def do_test_find_min_max(tree, tree_name, expected):
     original_tree = copy_tree(tree)
-    recreate_msg = gen_recreate_msg_with_trees(MODULE, "min_depth_leaf", tree_name)
+    recreate_msg = RMSG.format("find_min_max", tree_name, "find_min_max")
+
     actual = week7.find_min_max(tree)
 
     err_msg = check_none(actual, recreate_msg)
@@ -293,7 +301,7 @@ def do_test_find_min_max(tree, tree_name, expected):
 
 def do_test_min_depth_leaf(tree, tree_name, expected):
     original_tree = copy_tree(tree)
-    recreate_msg = gen_recreate_msg_with_trees(MODULE, "min_depth_leaf", tree_name)
+    recreate_msg = RMSG.format("min_depth_leaf", tree_name, "min_depth_leaf")
     actual = week7.min_depth_leaf(tree)
 
     err_msg = check_none(actual, recreate_msg)
@@ -318,8 +326,8 @@ def do_test_min_depth_leaf(tree, tree_name, expected):
 
 def do_test_has_increasing_values(tree, test_num, expected):
     original_tree = copy_tree(tree)
-    recreate_msg = "See test_week7.py, increasing_values test {} for tree".format(
-        test_num
+    recreate_msg = RMSG.format(
+        "has_increasing_values", test_num, "has_increaasing_values"
     )
     actual = week7.has_increasing_values(tree)
     err_msg = check_none(actual, recreate_msg)
@@ -352,10 +360,13 @@ def do_test_has_increasing_values(tree, test_num, expected):
 # FIND_MIN_MAX
 # Test 1:
 def test_find_min_max_1():
+    # START TREE CONSTRUCTION
     a = Tree("A", 10)
     b = Tree("B", 20)
     tree = a
     a.add_child(b)
+    # END TREE CONSTRUCTION
+
     err_msg = do_test_find_min_max(tree, "1", (10, 20))
     if err_msg:
         pytest.fail(err_msg)
@@ -363,12 +374,15 @@ def test_find_min_max_1():
 
 # Test 2:
 def test_find_min_max_2():
+    # START TREE CONSTRUCTION
     a = Tree("A", 10)
     b = Tree("B", 20)
     c = Tree("C", 70)
     tree = a
     a.add_child(b)
     a.add_child(c)
+    # END TREE CONSTRUCTION
+
     err_msg = do_test_find_min_max(tree, "2", (10, 70))
     if err_msg:
         pytest.fail(err_msg)
@@ -376,12 +390,15 @@ def test_find_min_max_2():
 
 # Test 3:
 def test_find_min_max_3():
+    # START TREE CONSTRUCTION
     c = Tree("C", 70)
     f = Tree("F", 80)
     g = Tree("G", 120)
     tree = c
     c.add_child(f)
     f.add_child(g)
+    # END TREE CONSTRUCTION
+
     err_msg = do_test_find_min_max(tree, "3", (70, 120))
     if err_msg:
         pytest.fail(err_msg)
@@ -389,6 +406,7 @@ def test_find_min_max_3():
 
 # Test 4:
 def test_find_min_max_4():
+    # START TREE CONSTRUCTION
     c = Tree("C", 70)
     f = Tree("F", 80)
     g = Tree("G", 120)
@@ -397,6 +415,8 @@ def test_find_min_max_4():
     c.add_child(f)
     f.add_child(g)
     f.add_child(j)
+    # END TREE CONSTRUCTION
+
     err_msg = do_test_find_min_max(tree, "4", (70, 120))
     if err_msg:
         pytest.fail(err_msg)
@@ -404,6 +424,7 @@ def test_find_min_max_4():
 
 # Test 5:
 def test_find_min_max_5():
+    # START TREE CONSTRUCTION
     c = Tree("C", 70)
     g = Tree("G", 120)
     h = Tree("H", 40)
@@ -414,6 +435,8 @@ def test_find_min_max_5():
     c.add_child(k)
     f.add_child(g)
     f.add_child(h)
+    # END TREE CONSTRUCTION
+
     err_msg = do_test_find_min_max(tree, "5", (40, 120))
     if err_msg:
         pytest.fail(err_msg)
@@ -421,6 +444,7 @@ def test_find_min_max_5():
 
 # Test 6:
 def test_find_min_max_6():
+    # START TREE CONSTRUCTION
     c = Tree("C", 70)
     g = Tree("G", 120)
     f = Tree("F", 80)
@@ -432,6 +456,8 @@ def test_find_min_max_6():
     k.add_child(l)
     f.add_child(g)
     f.add_child(l)
+    # END TREE CONSTRUCTION
+
     err_msg = do_test_find_min_max(tree, "6", (70, 120))
     if err_msg:
         pytest.fail(err_msg)
@@ -439,6 +465,7 @@ def test_find_min_max_6():
 
 # Test 7:
 def test_find_min_max_7():
+    # START TREE CONSTRUCTION
     a = Tree("A", 10)
     c = Tree("C", 70)
     g = Tree("G", 120)
@@ -452,6 +479,8 @@ def test_find_min_max_7():
     f.add_child(g)
     f.add_child(l)
     g.add_child(a)
+    # END TREE CONSTRUCTION
+
     err_msg = do_test_find_min_max(tree, "7", (10, 120))
     if err_msg:
         pytest.fail(err_msg)
@@ -459,6 +488,7 @@ def test_find_min_max_7():
 
 # Test 8:
 def test_find_min_max_8():
+    # START TREE CONSTRUCTION
     a = Tree("A", 10)
     b = Tree("B", 70)
     c = Tree("C", 70)
@@ -474,6 +504,8 @@ def test_find_min_max_8():
     f.add_child(g)
     f.add_child(l)
     g.add_child(a)
+    # END TREE CONSTRUCTION
+
     err_msg = do_test_find_min_max(tree, "8", (5, 120))
     if err_msg:
         pytest.fail(err_msg)
@@ -481,6 +513,7 @@ def test_find_min_max_8():
 
 # Test 9:
 def test_find_min_max_9():
+    # START TREE CONSTRUCTION
     a = Tree("A", 10)
     b = Tree("B", 70)
     c = Tree("C", 70)
@@ -489,6 +522,8 @@ def test_find_min_max_9():
     c.add_child(f)
     f.add_child(a)
     a.add_child(b)
+    # END TREE CONSTRUCTION
+
     err_msg = do_test_find_min_max(tree, "9", (10, 80))
     if err_msg:
         pytest.fail(err_msg)
@@ -496,6 +531,7 @@ def test_find_min_max_9():
 
 # Test 10:
 def test_find_min_max_10():
+    # START TREE CONSTRUCTION
     a = Tree("A", 10)
     b = Tree("B", 70)
     c = Tree("C", 70)
@@ -506,6 +542,8 @@ def test_find_min_max_10():
     f.add_child(a)
     f.add_child(g)
     a.add_child(b)
+    # END TREE CONSTRUCTION
+
     err_msg = do_test_find_min_max(tree, "10", (10, 120))
     if err_msg:
         pytest.fail(err_msg)
@@ -514,10 +552,13 @@ def test_find_min_max_10():
 # MIN DEPTH OF A LEAF
 # Test 1:
 def test_min_depth_leaf_1():
+    # START TREE CONSTRUCTION
     a = Tree("A", 10)
     b = Tree("B", 20)
     tree = a
     a.add_child(b)
+    # END TREE CONSTRUCTION
+
     err_msg = do_test_min_depth_leaf(tree, "1", 1)
     if err_msg:
         pytest.fail(err_msg)
@@ -525,12 +566,15 @@ def test_min_depth_leaf_1():
 
 # Test 2:
 def test_min_depth_leaf_2():
+    # START TREE CONSTRUCTION
     a = Tree("A", 10)
     b = Tree("B", 20)
     c = Tree("C", 70)
     tree = a
     a.add_child(b)
     a.add_child(c)
+    # END TREE CONSTRUCTION
+
     err_msg = do_test_min_depth_leaf(tree, "2", 1)
     if err_msg:
         pytest.fail(err_msg)
@@ -538,6 +582,7 @@ def test_min_depth_leaf_2():
 
 # Test 3:
 def test_min_depth_leaf_3():
+    # START TREE CONSTRUCTION
     c = Tree("C", 70)
     f = Tree("F", 80)
     g = Tree("G", 120)
@@ -545,6 +590,8 @@ def test_min_depth_leaf_3():
     c.add_child(f)
     f.add_child(g)
     err_msg = do_test_min_depth_leaf(tree, "3", 2)
+    # END TREE CONSTRUCTION
+
     if err_msg:
         pytest.fail(err_msg)
 
@@ -559,6 +606,8 @@ def test_min_depth_leaf_4():
     c.add_child(f)
     f.add_child(g)
     f.add_child(j)
+    # END TREE CONSTRUCTION
+
     err_msg = do_test_min_depth_leaf(tree, "4", 2)
     if err_msg:
         pytest.fail(err_msg)
@@ -566,6 +615,7 @@ def test_min_depth_leaf_4():
 
 # Test 5:
 def test_min_depth_leaf_5():
+    # START TREE CONSTRUCTION
     c = Tree("C", 70)
     g = Tree("G", 120)
     h = Tree("H", 40)
@@ -576,6 +626,8 @@ def test_min_depth_leaf_5():
     c.add_child(k)
     f.add_child(g)
     f.add_child(h)
+    # END TREE CONSTRUCTION
+
     err_msg = do_test_min_depth_leaf(tree, "5", 1)
     if err_msg:
         pytest.fail(err_msg)
@@ -583,6 +635,7 @@ def test_min_depth_leaf_5():
 
 # Test 6:
 def test_min_depth_leaf_6():
+    # START TREE CONSTRUCTION
     c = Tree("C", 70)
     g = Tree("G", 120)
     f = Tree("F", 80)
@@ -594,6 +647,8 @@ def test_min_depth_leaf_6():
     k.add_child(l)
     f.add_child(g)
     f.add_child(l)
+    # END TREE CONSTRUCTION
+
     err_msg = do_test_min_depth_leaf(tree, "6", 2)
     if err_msg:
         pytest.fail(err_msg)
@@ -601,6 +656,7 @@ def test_min_depth_leaf_6():
 
 # Test 7:
 def test_min_depth_leaf_7():
+    # START TREE CONSTRUCTION
     a = Tree("A", 10)
     c = Tree("C", 70)
     g = Tree("G", 120)
@@ -614,6 +670,8 @@ def test_min_depth_leaf_7():
     f.add_child(g)
     f.add_child(l)
     g.add_child(a)
+    # END TREE CONSTRUCTION
+
     err_msg = do_test_min_depth_leaf(tree, "7", 2)
     if err_msg:
         pytest.fail(err_msg)
@@ -621,6 +679,7 @@ def test_min_depth_leaf_7():
 
 # Test 8:
 def test_min_depth_leaf_8():
+    # START TREE CONSTRUCTION
     a = Tree("A", 10)
     b = Tree("B", 70)
     c = Tree("C", 70)
@@ -636,6 +695,8 @@ def test_min_depth_leaf_8():
     f.add_child(g)
     f.add_child(l)
     g.add_child(a)
+    # END TREE CONSTRUCTION
+
     err_msg = do_test_min_depth_leaf(tree, "8", 1)
     if err_msg:
         pytest.fail(err_msg)
@@ -643,6 +704,7 @@ def test_min_depth_leaf_8():
 
 # Test 9:
 def test_min_depth_leaf_9():
+    # START TREE CONSTRUCTION
     a = Tree("A", 10)
     b = Tree("B", 70)
     c = Tree("C", 70)
@@ -651,6 +713,8 @@ def test_min_depth_leaf_9():
     c.add_child(f)
     f.add_child(a)
     a.add_child(b)
+    # END TREE CONSTRUCTION
+
     err_msg = do_test_min_depth_leaf(tree, "9", 3)
     if err_msg:
         pytest.fail(err_msg)
@@ -658,6 +722,7 @@ def test_min_depth_leaf_9():
 
 # Test 10:
 def test_min_depth_leaf_10():
+    # START TREE CONSTRUCTION
     a = Tree("A", 10)
     b = Tree("B", 70)
     c = Tree("C", 70)
@@ -668,6 +733,8 @@ def test_min_depth_leaf_10():
     f.add_child(a)
     f.add_child(g)
     a.add_child(b)
+    # END TREE CONSTRUCTION
+
     err_msg = do_test_min_depth_leaf(tree, "10", 2)
     if err_msg:
         pytest.fail(err_msg)
@@ -676,8 +743,11 @@ def test_min_depth_leaf_10():
 # INCREASING VALUES
 # Test 1:
 def test_has_increasing_values_1():
+    # START TREE CONSTRUCTION
     a = Tree("A", 10)
     tree = a
+    # END TREE CONSTRUCTION
+
     err_msg = do_test_has_increasing_values(tree, "1", True)
     if err_msg:
         pytest.fail(err_msg)
@@ -685,10 +755,13 @@ def test_has_increasing_values_1():
 
 # Test 2:
 def test_has_increasing_values_2():
+    # START TREE CONSTRUCTION
     a = Tree("A", 10)
     b = Tree("B", 20)
     tree = a
     a.add_child(b)
+    # END TREE CONSTRUCTION
+
     err_msg = do_test_has_increasing_values(tree, "2", True)
     if err_msg:
         pytest.fail(err_msg)
@@ -696,12 +769,15 @@ def test_has_increasing_values_2():
 
 # Test 3:
 def test_has_increasing_values_3():
+    # START TREE CONSTRUCTION
     a = Tree("A", 10)
     b = Tree("B", 20)
     c = Tree("C", 70)
     tree = a
     a.add_child(b)
     a.add_child(c)
+    # END TREE CONSTRUCTION
+
     err_msg = do_test_has_increasing_values(tree, "3", True)
     if err_msg:
         pytest.fail(err_msg)
@@ -709,12 +785,15 @@ def test_has_increasing_values_3():
 
 # Test 4:
 def test_has_increasing_values_4():
+    # START TREE CONSTRUCTION
     b = Tree("B", 20)
     c = Tree("C", 70)
     f = Tree("F", 80)
     tree = f
     f.add_child(b)
     f.add_child(c)
+    # END TREE CONSTRUCTION
+
     err_msg = do_test_has_increasing_values(tree, "4", False)
     if err_msg:
         pytest.fail(err_msg)
@@ -722,12 +801,15 @@ def test_has_increasing_values_4():
 
 # Test 5:
 def test_has_increasing_values_5():
+    # START TREE CONSTRUCTION
     c = Tree("C", 70)
     f = Tree("F", 80)
     g = Tree("G", 120)
     tree = f
     f.add_child(g)
     f.add_child(c)
+    # END TREE CONSTRUCTION
+
     err_msg = do_test_has_increasing_values(tree, "5", False)
     if err_msg:
         pytest.fail(err_msg)
@@ -735,12 +817,15 @@ def test_has_increasing_values_5():
 
 # Test 6:
 def test_has_increasing_values_6():
+    # START TREE CONSTRUCTION
     c = Tree("C", 70)
     f = Tree("F", 80)
     g = Tree("G", 120)
     tree = f
     f.add_child(c)
     f.add_child(g)
+    # END TREE CONSTRUCTION
+
     err_msg = do_test_has_increasing_values(tree, "6", False)
     if err_msg:
         pytest.fail(err_msg)
@@ -748,10 +833,13 @@ def test_has_increasing_values_6():
 
 # Test 7:
 def test_has_increasing_values_7():
+    # START TREE CONSTRUCTION
     c = Tree("C", 70)
     f = Tree("F", 80)
     tree = f
     f.add_child(c)
+    # END TREE CONSTRUCTION
+
     err_msg = do_test_has_increasing_values(tree, "7", False)
     if err_msg:
         pytest.fail(err_msg)
@@ -759,12 +847,15 @@ def test_has_increasing_values_7():
 
 # Test 8:
 def test_has_increasing_values_8():
+    # START TREE CONSTRUCTION
     c = Tree("C", 70)
     f = Tree("F", 80)
     g = Tree("G", 120)
     tree = c
     c.add_child(f)
     f.add_child(g)
+    # END TREE CONSTRUCTION
+
     err_msg = do_test_has_increasing_values(tree, "8", True)
     if err_msg:
         pytest.fail(err_msg)
@@ -772,6 +863,7 @@ def test_has_increasing_values_8():
 
 # Test 9:
 def test_has_increasing_values_9():
+    # START TREE CONSTRUCTION
     c = Tree("C", 70)
     f = Tree("F", 80)
     g = Tree("G", 120)
@@ -780,6 +872,8 @@ def test_has_increasing_values_9():
     c.add_child(f)
     f.add_child(g)
     f.add_child(j)
+    # END TREE CONSTRUCTION
+
     err_msg = do_test_has_increasing_values(tree, "9", True)
     if err_msg:
         pytest.fail(err_msg)
@@ -787,6 +881,7 @@ def test_has_increasing_values_9():
 
 # Test 10:
 def test_has_increasing_values_10():
+    # START TREE CONSTRUCTION
     c = Tree("C", 70)
     g = Tree("G", 120)
     h = Tree("H", 40)
@@ -795,6 +890,8 @@ def test_has_increasing_values_10():
     c.add_child(f)
     f.add_child(g)
     f.add_child(h)
+    # END TREE CONSTRUCTION
+
     err_msg = do_test_has_increasing_values(tree, "10", False)
     if err_msg:
         pytest.fail(err_msg)
@@ -802,6 +899,7 @@ def test_has_increasing_values_10():
 
 # Test 11:
 def test_has_increasing_values_11():
+    # START TREE CONSTRUCTION
     c = Tree("C", 70)
     g = Tree("G", 120)
     h = Tree("H", 40)
@@ -812,6 +910,8 @@ def test_has_increasing_values_11():
     c.add_child(k)
     f.add_child(g)
     f.add_child(h)
+    # END TREE CONSTRUCTION
+
     err_msg = do_test_has_increasing_values(tree, "11", False)
     if err_msg:
         pytest.fail(err_msg)
@@ -819,6 +919,7 @@ def test_has_increasing_values_11():
 
 # Test 12:
 def test_has_increasing_values_12():
+    # START TREE CONSTRUCTION
     c = Tree("C", 70)
     g = Tree("G", 120)
     f = Tree("F", 80)
@@ -829,6 +930,8 @@ def test_has_increasing_values_12():
     c.add_child(k)
     f.add_child(g)
     f.add_child(l)
+    # END TREE CONSTRUCTION
+
     err_msg = do_test_has_increasing_values(tree, "12", True)
     if err_msg:
         pytest.fail(err_msg)
@@ -836,6 +939,7 @@ def test_has_increasing_values_12():
 
 # Test 13:
 def test_has_increasing_values_13():
+    # START TREE CONSTRUCTION
     c = Tree("C", 70)
     g = Tree("G", 120)
     f = Tree("F", 80)
@@ -847,6 +951,7 @@ def test_has_increasing_values_13():
     k.add_child(l)
     f.add_child(g)
     f.add_child(l)
+    # END TREE CONSTRUCTION
     err_msg = do_test_has_increasing_values(tree, "13", True)
     if err_msg:
         pytest.fail(err_msg)
@@ -854,6 +959,7 @@ def test_has_increasing_values_13():
 
 # Test 14:
 def test_has_increasing_values_14():
+    # START TREE CONSTRUCTION
     a = Tree("A", 10)
     c = Tree("C", 70)
     g = Tree("G", 120)
@@ -866,6 +972,7 @@ def test_has_increasing_values_14():
     k.add_child(a)
     f.add_child(g)
     f.add_child(l)
+    # END TREE CONSTRUCTION
     err_msg = do_test_has_increasing_values(tree, "14", False)
     if err_msg:
         pytest.fail(err_msg)
